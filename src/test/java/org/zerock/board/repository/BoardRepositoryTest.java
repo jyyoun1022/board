@@ -56,6 +56,9 @@ class BoardRepositoryTest {
         System.out.println(board.getWriter());
     }
 
+    /**
+     * 목록화면
+     */
     @Test
     void testReadWithWriter() {
 
@@ -87,5 +90,15 @@ class BoardRepositoryTest {
             Object[] arr = (Object[])row;
             System.out.println(Arrays.toString(arr));
         });
+    }
+    /**
+     * 조회화면
+     */
+    @Test
+    void testRead3(){
+        Object result = boardRepository.getBoardByBno(100L);
+        Object[] result1 = (Object[]) result;
+        System.out.println(Arrays.toString(result1));
+
     }
 }
