@@ -12,6 +12,11 @@ public interface BoardService {
 
     PageResultDTO<BoardDTO,Object[]> getList (PageRequestDTO pageRequestDTO);
 
+    //게시물 조회 처리(파라미터로 게물의 번호(bno)를 받아서 처리한다.
+    //get()메서드는 EntityToDTO를 리턴하게 합니다.(
+    BoardDTO get(Long bno);
+
+
 
 
     //이 메서드는 실제로 게시물을 등록하는 register() 에서 사용합니다.

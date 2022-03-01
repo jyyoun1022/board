@@ -40,4 +40,18 @@ public class BoardServiceImpl implements BoardService{
 
         return new PageResultDTO<>(result,fn);
     }
+
+    //게시물 조회는 BoardRepository 의 Board 엔티티와 Member 엔티티와 댓글의 수를 가져오는 getBoardByBno를 이용하여 처리합니다.
+    @Override
+    public BoardDTO get(Long bno) {
+
+        Object result = boardRepository.getBoardByBno(bno);
+
+        Object[] arr = (Object[]) result;
+
+        return entityToDTO((Board)arr[0],(Member)arr[1] ,(Long)arr[2]);
+
+    }
+
+
 }
