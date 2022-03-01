@@ -14,12 +14,13 @@ import org.zerock.board.entity.Member;
 import org.zerock.board.repository.BoardRepository;
 import org.zerock.board.repository.ReplyRepository;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Service
 @Log4j2
-public class BoardServiceImpl implements BoardService{
+public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
     private final ReplyRepository replyRepository;
@@ -39,12 +40,12 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
 
-        Function<Object[],BoardDTO> fn =(en -> entityToDTO((Board)en[0],(Member)en[1],(Long)en[2]));
+        Function<Object[], BoardDTO> fn = (en -> entityToDTO((Board) en[0], (Member) en[1], (Long) en[2]));
 
         Page<Object[]> result = boardRepository.getBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("bno").descending()));
 
 
-        return new PageResultDTO<>(result,fn);
+        return new PageResultDTO<>(result, fn);
     }
 
     //게시물 조회는 BoardRepository 의 Board 엔티티와 Member 엔티티와 댓글의 수를 가져오는 getBoardByBno를 이용하여 처리합니다.
@@ -55,7 +56,7 @@ public class BoardServiceImpl implements BoardService{
 
         Object[] arr = (Object[]) result;
 
-        return entityToDTO((Board)arr[0],(Member)arr[1] ,(Long)arr[2]);
+        return entityToDTO((Board) arr[0], (Member) arr[1], (Long) arr[2]);
     }
 
 
@@ -65,6 +66,29 @@ public class BoardServiceImpl implements BoardService{
 
         replyRepository.deleteByBno(bno);
         boardRepository.deleteById(bno);
+
+    }
+
+    @Override
+    @Transactional
+    public void modify(BoardDTO boardDTO) {
+
+        Board board = boardRepository.getOne(boardDTO.getBno());
+
+        board.changeTitle(boardDTO.getTitle());
+        board.changeContent(boardDTO.getContent());
+
+        boardRepository.save(board);
+//        Optional<Board> result = boardRepository.findById(boardDTO.getBno());
+//
+//        if(result.isPresent()){
+//            Board board = result.get();
+//            board.changeTitle(boardDTO.getTitle());
+//            board.changeContent(boardDTO.getContent());
+//
+//            boardRepository.save(board);
+//        }
+
 
     }
 }

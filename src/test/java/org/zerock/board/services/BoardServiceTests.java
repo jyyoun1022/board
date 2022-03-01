@@ -7,6 +7,7 @@ import org.zerock.board.BoardApplication;
 import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.dto.PageRequestDTO;
 import org.zerock.board.dto.PageResultDTO;
+import org.zerock.board.entity.Board;
 
 
 @SpringBootTest(classes = BoardApplication.class)
@@ -59,7 +60,7 @@ public class BoardServiceTests {
     @Test
     void testGet(){
 
-        Long bno = 100L;
+        Long bno = 3L;
 
         BoardDTO boardDTO = boardService.get(bno);
 
@@ -69,9 +70,22 @@ public class BoardServiceTests {
     @Test
     void testRemove(){
 
-        Long bno = 102L;
+        Long bno = 3L;
 
         boardService.removeWithReplies(bno);
 
     }
+    @Test
+    void testModify(){
+
+        BoardDTO result = BoardDTO.builder()
+                .bno(4L)
+                .title("수정된 제목")
+                .content("수정된 내용")
+                .build();
+
+        boardService.modify(result);
+    }
+
 }
+

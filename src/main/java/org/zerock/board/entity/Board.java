@@ -33,4 +33,14 @@ public class Board extends BaseEntity{
     //      fetch= 연관관계 데이터를 어떻게 가져올지 묻는것. Eager=연관관계가 있는 모든 엔티티, lazy=지연
     @ManyToOne(fetch = FetchType.LAZY)  //명시적으로 Lazy 로딩 지정
     private Member writer; //FK값
+
+    //제목수정
+    public void changeTitle(String title){
+        this.title=title;
+    }
+    //내용수정
+    public void changeContent(String content){
+        this.content=content;
+    }
+
 }

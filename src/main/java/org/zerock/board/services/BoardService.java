@@ -1,10 +1,12 @@
 package org.zerock.board.services;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.dto.PageRequestDTO;
 import org.zerock.board.dto.PageResultDTO;
 import org.zerock.board.entity.Board;
 import org.zerock.board.entity.Member;
+
 
 public interface BoardService {
 
@@ -22,6 +24,8 @@ public interface BoardService {
     //                                 2.해당 게시물을 삭제
     //가장 중요한 점은 위의 두작업이 하나의 '트랜잭션'으로 처리되어야 한다는 점!!
     void removeWithReplies(Long bno);
+
+    void modify(BoardDTO boardDTO);
 
     //이 메서드는 실제로 게시물을 등록하는 register() 에서 사용합니다.
     default Board dtoToEntity(BoardDTO dto){
