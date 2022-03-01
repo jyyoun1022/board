@@ -19,14 +19,21 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     Object getBoardWithWriter(@Param("bno")Long bno);
 
 
+
+
     @Query("Select b,r From Board b Left Join Reply r on r.board = b where b.bno = :bno")
     List<Object[]> getBoardWithReply(@Param("bno")Long bno);
+
+
 
     //하나의 게시물 당 하나의 라인이 될 수 있도록 GROUP BY를 사용.
     //목록(list)와 pageable(페이징,정렬)은 세트라고 생각하자.
     @Query(value = "Select b,w,count(r) from Board b left join b.writer w left join Reply r on r.board=b group by b"
             ,countQuery = "select count(b) from Board b")
     Page<Object[]> getBoardWithReplyCount(Pageable pageable);
+
+
+
 
     @Query(value="select b,w,count(r) from Board b left join b.writer w left join Reply r on r.board=b where b.bno= :bno")
     Object getBoardByBno(@Param("bno")Long bno);

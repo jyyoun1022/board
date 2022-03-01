@@ -1,21 +1,20 @@
-package org.zerock.board.service;
+package org.zerock.board.services;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.zerock.board.BoardApplication;
 import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.dto.PageRequestDTO;
 import org.zerock.board.dto.PageResultDTO;
 
-@SpringBootTest
+
+@SpringBootTest(classes = BoardApplication.class)
 public class BoardServiceTests {
 
     @Autowired
     private BoardService boardService;
 
-    /**
-     *
-     */
     @Test
     void testRegister(){
         BoardDTO dto = BoardDTO.builder()
@@ -44,7 +43,7 @@ public class BoardServiceTests {
 
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
 
-        PageResultDTO<BoardDTO,Object[]> result = boardService.getList(pageRequestDTO);
+        PageResultDTO<BoardDTO,Object[]> result = boardServiceimpl.getList(pageRequestDTO);
 
         for (BoardDTO dto   : result.getDtoList() ) {
             System.out.println("dto = " + dto);
@@ -65,5 +64,14 @@ public class BoardServiceTests {
         BoardDTO boardDTO = boardService.get(bno);
 
         System.out.println("boardDTO = " + boardDTO);
+    }
+
+    @Test
+    void testRemove(){
+
+        Long bno = 1L;
+
+        boardService.removeWithReplies(bno);
+
     }
 }

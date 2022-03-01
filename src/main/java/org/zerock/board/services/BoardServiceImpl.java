@@ -1,16 +1,18 @@
-package org.zerock.board.service;
+package org.zerock.board.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.dto.PageRequestDTO;
 import org.zerock.board.dto.PageResultDTO;
 import org.zerock.board.entity.Board;
 import org.zerock.board.entity.Member;
 import org.zerock.board.repository.BoardRepository;
+import org.zerock.board.repository.ReplyRepository;
 
 import java.util.function.Function;
 
@@ -20,13 +22,17 @@ import java.util.function.Function;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
     @Override
     public Long register(BoardDTO dto) {
-        Board board = dtoToEntity(dto);
-        boardRepository.save(board);
 
-        return board.getBno();
+//        Board board = dtoToEntity(dto);
+//        boardRepository.save(dtoToEntity(dto)).getBno();
+
+        return boardRepository
+                .save(dtoToEntity(dto))
+                .getBno();
     }
 
     //getList()의 핵심은 entityToDTO()를 이용하여 PageResultDTO 객체를 구성하는 것이다.
@@ -50,8 +56,15 @@ public class BoardServiceImpl implements BoardService{
         Object[] arr = (Object[]) result;
 
         return entityToDTO((Board)arr[0],(Member)arr[1] ,(Long)arr[2]);
-
     }
 
 
+    @Transactional()
+    @Override
+    public void removeWithReplies(Long bno) {
+
+        replyRepository.deleteByBno(bno);
+        boardRepository.deleteById(bno);
+
+    }
 }

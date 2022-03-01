@@ -1,4 +1,4 @@
-package org.zerock.board.service;
+package org.zerock.board.services;
 
 import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.dto.PageRequestDTO;
@@ -16,8 +16,12 @@ public interface BoardService {
     //get()메서드는 EntityToDTO를 리턴하게 합니다.(
     BoardDTO get(Long bno);
 
-
-
+    //게시물 삭제 처리
+    //게시물을 삭제하려면 FK로 게시물을 참조하고 있는 Reply테이블 역시 삭제해야 한다.
+    //잓업의 순서                        1.해당 게시물의 모든 댓글을 삭제
+    //                                 2.해당 게시물을 삭제
+    //가장 중요한 점은 위의 두작업이 하나의 '트랜잭션'으로 처리되어야 한다는 점!!
+    void removeWithReplies(Long bno);
 
     //이 메서드는 실제로 게시물을 등록하는 register() 에서 사용합니다.
     default Board dtoToEntity(BoardDTO dto){
@@ -52,6 +56,4 @@ public interface BoardService {
 
         return boardDTO;
     }
-
-
 }
