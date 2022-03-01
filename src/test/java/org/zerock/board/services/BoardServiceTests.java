@@ -43,7 +43,7 @@ public class BoardServiceTests {
 
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
 
-        PageResultDTO<BoardDTO,Object[]> result = boardServiceimpl.getList(pageRequestDTO);
+        PageResultDTO<BoardDTO,Object[]> result = boardService.getList(pageRequestDTO);
 
         for (BoardDTO dto   : result.getDtoList() ) {
             System.out.println("dto = " + dto);
@@ -69,7 +69,7 @@ public class BoardServiceTests {
     @Test
     void testRemove(){
 
-        Long bno = 1L;
+        Long bno = 102L;
 
         boardService.removeWithReplies(bno);
 
