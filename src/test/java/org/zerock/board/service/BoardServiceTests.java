@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.board.dto.BoardDTO;
+import org.zerock.board.dto.PageRequestDTO;
+import org.zerock.board.dto.PageResultDTO;
 
 @SpringBootTest
 public class BoardServiceTests {
@@ -21,4 +23,20 @@ public class BoardServiceTests {
 
         Long bno = boardService.register(dto);
     }
+
+    @Test
+    public  void testList(){
+
+        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+
+        PageResultDTO<BoardDTO,Object[]> result = boardService.getList(pageRequestDTO);
+
+        for (BoardDTO dto   : result.getDtoList() ) {
+            System.out.println("dto = " + dto);
+
+        }
+
+
+    }
+
 }

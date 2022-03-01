@@ -12,10 +12,12 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board,Long> {
 
     //한개의 로우(Object) 내에 Object[]로 나온다.
-    //내부에 있는 엔티티를 이요할 떄는 ON을 이용하는 부분이 없다.
+    //내부에 있는 엔티티를 이용할 떄는 ON을 이용하는 부분이 없다.
     //Join,Group By 등을 사용할 때, 적당한 엔티티타입이 존재하지 않는경우가 많기 때문에 Object[]타입을 리턴타입으로 지정
+    //
     @Query("select b,w from Board b left join b.writer w where b.bno=:bno")
     Object getBoardWithWriter(@Param("bno")Long bno);
+
 
     @Query("Select b,r From Board b Left Join Reply r on r.board = b where b.bno = :bno")
     List<Object[]> getBoardWithReply(@Param("bno")Long bno);

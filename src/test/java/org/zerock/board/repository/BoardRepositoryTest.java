@@ -64,11 +64,12 @@ class BoardRepositoryTest {
 
         Object result = boardRepository.getBoardWithWriter(100L);
 
-        Object[] arrResult1 = (Object[]) result;
+        Object arrResult1 = (Object[]) result;
+        Object[] arrResult11 = (Object[]) arrResult1;
         System.out.println("========================");
         //자바에서 배열 내용을 출력해보려고 배열 자체의 내용의 toString을 하면 배열의 내용이 아니라 배열의 주소값이 나온다.
         //그래서 배열의 내용을 출력하려면 Arrays.toString()을 사용해야 한다!
-        System.out.println(Arrays.toString(arrResult1));
+        System.out.println(Arrays.toString(arrResult11));
     }
 
     @Test
@@ -86,9 +87,19 @@ class BoardRepositoryTest {
 
         Page<Object[]> result = boardRepository.getBoardWithReplyCount(pageable);
 
+        //Page를 get()으로 받을 경우에는 Stream<Entity Type>으로 반환하여 출력할 수 있다.
         result.get().forEach(row->{
             Object[] arr = (Object[])row;
             System.out.println(Arrays.toString(arr));
+
+            System.out.println("======================");
+
+            //Page를 getContent()로 받을 경우에는 List<Entity Type>으로 받을 수 있습니다.
+            List<Object[]> content = result.getContent();
+            for (Object[] objects : content) {
+                System.out.println(objects);
+
+            }
         });
     }
     /**
@@ -97,8 +108,10 @@ class BoardRepositoryTest {
     @Test
     void testRead3(){
         Object result = boardRepository.getBoardByBno(100L);
-        Object[] result1 = (Object[]) result;
-        System.out.println(Arrays.toString(result1));
+
+        Object[] arrResult = (Object[]) result;
+
+        System.out.println(Arrays.toString(arrResult));
 
     }
 }

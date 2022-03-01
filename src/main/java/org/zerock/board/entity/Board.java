@@ -26,9 +26,6 @@ public class Board extends BaseEntity{
     private String content;
 
 
-
-
-
     //      FK쪽의 엔티티를 가져올때 PK쪽의 엔티티도 같이 가져온다. (=실제로 Left outer join 처리가 된다)
     //      jpa에서는 관계고민시 fk쪽을 먼저 해석해 본다.
     //      FK쪽을 먼저 해석해보면 N:1관계가 되므로 이는 곧 @ManytoOne를 의미한다.
