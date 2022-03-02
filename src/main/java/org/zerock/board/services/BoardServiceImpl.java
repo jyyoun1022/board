@@ -78,7 +78,7 @@ public class BoardServiceImpl implements BoardService {
         board.changeTitle(boardDTO.getTitle());
         board.changeContent(boardDTO.getContent());
 
-        boardRepository.save(board);
+//        boardRepository.save(board);
 //        Optional<Board> result = boardRepository.findById(boardDTO.getBno());
 //
 //        if(result.isPresent()){
@@ -91,4 +91,5 @@ public class BoardServiceImpl implements BoardService {
 
 
     }
+
 }

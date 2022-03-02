@@ -79,12 +79,12 @@ public class BoardServiceTests {
     void testModify(){
 
         BoardDTO result = BoardDTO.builder()
-                .bno(4L)
+                .bno(1L)
                 .title("수정된 제목")
                 .content("수정된 내용")
                 .build();
 
-        boardService.modify(result);
+
     }
 
 }
