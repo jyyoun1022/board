@@ -1,5 +1,6 @@
 package org.zerock.board.repository;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -113,5 +114,20 @@ class BoardRepositoryTest {
 
         System.out.println(Arrays.toString(arrResult));
 
+    }
+    @Test
+    @DisplayName("서치테스트")
+    void testSearch1(){
+
+        boardRepository.search1();
+    }
+    @Test
+    @DisplayName("검색페이지")
+    void testSearchPage(){
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+
+
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
     }
 }
