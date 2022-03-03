@@ -96,7 +96,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
                         break;
                     case "c":
                         conditionBuilder.or(board.content.contains(keyword));
-                        break;
+
                 }
             }
             booleanBuilder.and(conditionBuilder);//bno가 0이상이면서 +type조건
