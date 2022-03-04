@@ -2,7 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<head>
 
+</head>
+    <body>
     <th:block th:fragment="content">
 
         <h1 class="mt-4">Board Read Page</h1>
@@ -38,6 +41,43 @@
 
         <a th:href="@{/board/list(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}"><button type="button" class="btn btn-info">List</button></a>
 
+        <div>
+            <div class="mt-4">
+                <h5><span class="badge badge-secondary replyCount">Reply Count [[${dto.replyCount}]]</span></h5>
+            </div>
+            <div class="list-group replyList">
+
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+
+$(document).ready(function(){
+
+console.log("---------------------------------1")
+
+//게시글 번호
+var bno = [[${dto.bno}]];
+
+var listGroup = $(".replyList");
+
+$(".replyCount").click(function(){
+
+console.log("AAAAAAAAAAAAAAAAAAAAAAAAA")
+
+$.getJSON('/replies/board/'+bno,function(arr){
+
+console.log(arr);
+
+})//getJSON()
+
+})//click()
+
+});//ready()
+
+</script>
+
     </th:block>
+    </body>
 </th:block>
 </html>
