@@ -43,8 +43,8 @@ public class BoardController {
 
         return "redirect:/board/list";
     }
-    @GetMapping({"/read","/modify"})
-    public void read(@ModelAttribute("requestDTO") PageRequestDTO requestDTO, Long bno, Model model){
+    @GetMapping({"/read", "/modify" })
+    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long bno, Model model){
 
         BoardDTO boardDTO = boardService.get(bno);
 

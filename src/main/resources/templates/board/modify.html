@@ -65,10 +65,8 @@
                     return ;
                 }
 
-                actionForm
-                    .attr("action", "/board/modify")
-                    .attr("method","post")
-                    .submit();
+                actionForm.attr("action", "/board/modify").attr("method","post").submit();
+
             });
 
             $(".listBtn").click(function() {
