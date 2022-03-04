@@ -10,6 +10,11 @@ import org.zerock.board.repository.search.SearchBoardRepository;
 
 import java.util.List;
 
+
+/**
+ * QuerydslRepositorySupport를 상속하게되면 더 이상 QueryDsl을 사용할 수 없습니다.
+ * 단, 생성자에서 super(EntityTpe.class)를 호출하면 가능 함.
+ */
 public interface BoardRepository extends JpaRepository<Board,Long>, SearchBoardRepository {
 
     //한개의 로우(Object) 내에 Object[]로 나온다.
