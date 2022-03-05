@@ -38,9 +38,9 @@ public interface BoardService {
                 .content(dto.getContent())
                 .writer(member)
                 .build();
+
         return board;
     }
-
 
     //JPQL 에서 나오는 Object[] 타입을 DTO 타입 으로 변환시켜줘야합니다.
     //Object[]의 내용은 Board,Member,그리고 댓글의 수 Long 타입이 나오게 되므로 파라미터는 3개가 됩니다.
